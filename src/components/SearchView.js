@@ -3,14 +3,14 @@ import { View } from 'react-native';
 import { SearchBar, ButtonGroup } from 'react-native-elements';
 import PhotoList from './PhotoList';
 import PhotoGrid from './PhotoGrid';
-// import { connect } from 'react-redux'
-// import actions from '../actions/ViewAction'
-// import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import actions from '../actions/ViewAction'
+import PropTypes from 'prop-types'
 
 
-// const mapStateToProps = ({ todo, user }) => {
+// const mapStateToProps = ({ changeView, searchViewNum }) => {
 //   return {
-//     viewNum: viewNum
+//     searchViewNum: searchViewNum
 //   }
 // }
 
@@ -43,7 +43,7 @@ export default class SearchView extends Component {
 }
 
 // SearchView.propTypes = {
-//   changeView: viewNum
+//   changeView: searchViewNum
 // }
 
 // export default connect(
