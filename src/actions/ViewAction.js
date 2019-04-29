@@ -8,10 +8,10 @@ const changeView = searchViewNum => ({ type: CHANGE_VIEW, data: searchViewNum })
 
 // const handleAddButtonClick = () => setInputVisibility(true)
 
-const handleChangeView = itemText => async dispatch => {
+const handleChangeView = searchViewNum => async dispatch => {
 //   dispatch(setInputVisibility(false))
 //   dispatch(addItem(itemText))
-dispatch(changeView(searchViewNum))
+    dispatch(changeView(searchViewNum))
  }
 
 export default {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View , Text} from 'react-native';
 import { SearchBar, ButtonGroup } from 'react-native-elements';
 import PhotoList from './PhotoList';
 import PhotoGrid from './PhotoGrid';
@@ -8,17 +8,19 @@ import actions from '../actions/ViewAction'
 import PropTypes from 'prop-types'
 
 
-// const mapStateToProps = ({ changeView, searchViewNum }) => {
-//   return {
-//     searchViewNum: searchViewNum
-//   }
-// }
+const mapStateToProps = ({ viewReducer }) => { //obj contains one or few redusers (root reducer)
+    return { searchViewNum : viewReducer.searchViewNum };
+  }
+
+
 
 export default class SearchView extends Component {
-  searchViewNum = 0
+  //searchViewNum = 0
 
   render() {
+    const { searchViewNum } = this.props;
     return (
+
       <View>
           <SearchBar
             placeholder="Type Here..."
@@ -30,20 +32,20 @@ export default class SearchView extends Component {
             // updateIndex (selectedIndex) {
             //   this.setState({selectedIndex})
             // }
-            selectedIndex = { this.searchViewNum }
+            selectedIndex = { searchViewNum }
             // buttons={buttons}
             buttons= {['Grid View','List View']}
           containerStyle={{height: 40 }}  
           />
-         { this.searchViewNum ? <PhotoList /> : <PhotoGrid /> }
-         
+          <Text>text:{searchViewNum}</Text>
+         { searchViewNum ? <PhotoList /> : <PhotoGrid /> }
       </View>
     );
   }
 }
 
 // SearchView.propTypes = {
-//   changeView: searchViewNum
+//   searchViewNum: PropTypes.number
 // }
 
 // export default connect(
