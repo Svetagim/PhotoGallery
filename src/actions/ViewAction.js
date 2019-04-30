@@ -18,5 +18,6 @@ export default {
 //   handleAddButtonClick,
 //   handleAddTodoSubmission,
 //   toggleItemDone
-handleChangeView
+    handleChangeView,
+    changeView
 };

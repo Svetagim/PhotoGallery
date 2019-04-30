@@ -4,21 +4,26 @@ import { SearchBar, ButtonGroup } from 'react-native-elements';
 import PhotoList from './PhotoList';
 import PhotoGrid from './PhotoGrid';
 import { connect } from 'react-redux'
-import actions from '../actions/ViewAction'
+import viewActions from '../actions/ViewAction'
 import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 
-
-const mapStateToProps = ({ viewReducer }) => { //obj contains one or few redusers (root reducer)
+const mapStateToProps = ({ viewReducer }) => { //obj contains one or few reducers (root reducer)
     return { searchViewNum : viewReducer.searchViewNum };
   }
 
-
-
-export default class SearchView extends Component {
-  //searchViewNum = 0
+class SearchView extends Component {
+  constructor (props) {
+    super(props)
+  this.updateIndex = this.updateIndex.bind(this)
+  }
+  updateIndex(selectedIndex) {
+    const { handleChangeView } = this.props.viewReducer.viewActions.handleChangeView
+    handleChangeView(selectedIndex)
+  }
 
   render() {
-    const { searchViewNum } = this.props;
+    const  { searchViewNum } = this.props;
     return (
 
       <View>
@@ -28,27 +33,23 @@ export default class SearchView extends Component {
             // value={search}
           /> 
         <ButtonGroup
-            // onPress = { updateIndex }
-            // updateIndex (selectedIndex) {
-            //   this.setState({selectedIndex})
-            // }
-            selectedIndex = { searchViewNum }
-            // buttons={buttons}
+            onPress = { this.updateIndex }
+            selectedIndex =  {searchViewNum }
             buttons= {['Grid View','List View']}
           containerStyle={{height: 40 }}  
           />
-          <Text>text:{searchViewNum}</Text>
+          <Text>text:{ JSON.stringify(this.props) }</Text>
          { searchViewNum ? <PhotoList /> : <PhotoGrid /> }
       </View>
     );
   }
 }
 
-// SearchView.propTypes = {
-//   searchViewNum: PropTypes.number
-// }
+SearchView.propTypes = {
+  searchViewNum: PropTypes.number
+}
 
-// export default connect(
-//   mapStateToProps,
-//   actions
-// )(SearchView)
+export default connect(
+  mapStateToProps,
+  viewActions
+)(SearchView)
