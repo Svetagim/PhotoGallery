@@ -6,20 +6,19 @@ import photoAction from '../actions/photoAction'
 import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 
-const mapStateToProps = ({ photoReducer }) => { //obj contains one or few reducers (root reducer)
-  return { data : photoReducer.data }
-};
-
+const mapStateToProps = state =>({ photos: state.photoReducer.photos }) 
 
 class PhotoList extends Component {
-  componentDidMount() {
-    const { data } = this.props
+  componentDidMount(){
+    console.log("this.props")
+    console.log(this.props)
+    const { photos } = this.props
   }
   render() {
+    const { photos } = this.props
+    console.table(this.props)
     return (
-
       <ScrollView contentContainerStyle={styles.contentContainer}>
-       <Text>text:{ JSON.stringify(this.props) }</Text>
           <View style={containerStyle.rowContainer}>
             <PhotoItem url="https://cdn.pixabay.com/photo/2018/01/05/16/24/rose-3063284_150.jpg" wid={70} />
             <View style={containerStyle.colContainer}>

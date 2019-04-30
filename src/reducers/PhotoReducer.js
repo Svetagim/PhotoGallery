@@ -7,6 +7,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case GET_PHOTOS: {
+      console.log(action.data)
         return {
             ...state,
             photos: action.data,

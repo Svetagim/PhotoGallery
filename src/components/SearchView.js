@@ -30,15 +30,18 @@ class SearchView extends Component {
     }
   this.updateIndex = this.updateIndex.bind(this)
   this.updateSearch = this.updateSearch.bind(this)
+  this.handleSubmittion = this.handleSubmittion.bind(this)
   }
   updateIndex(selectedIndex) {
     const { handleChangeView } = this.props.actions.viewActions
     handleChangeView(selectedIndex)
   }
   updateSearch(search) {
-    const { handleSearchPhoto } = this.props.actions.photoActions
     this.setState({ search })
-    handleSearchPhoto(search)
+  };
+  handleSubmittion() {
+    const { handleSearchPhoto } = this.props.actions.photoActions
+    handleSearchPhoto(this.state.search)
   };
 
   render() {
@@ -49,6 +52,7 @@ class SearchView extends Component {
           <SearchBar
             placeholder="Type Here..."
             onChangeText={this.updateSearch}
+            onSubmitEditing={this.handleSubmittion}
             value={this.state.search}
           /> 
           <ButtonGroup
