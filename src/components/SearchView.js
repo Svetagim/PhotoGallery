@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { View , Text} from 'react-native';
 import { SearchBar, ButtonGroup } from 'react-native-elements';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import PhotoList from './PhotoList';
 import PhotoGrid from './PhotoGrid';
-import { connect } from 'react-redux'
 import viewActions from '../actions/ViewAction'
-import PropTypes from 'prop-types'
-import { bindActionCreators } from 'redux'
+import photoActions from '../actions/photoAction'
 
 const mapStateToProps = ({ viewReducer }) => { //obj contains one or few reducers (root reducer)
     return { searchViewNum : viewReducer.searchViewNum };
   }
-  
-  function mapDispatchToProps(dispatch) {
+
+function mapDispatchToProps(dispatch) {
     return {
       actions: {
-        viewActions: bindActionCreators(viewActions, dispatch)
+        viewActions: bindActionCreators(viewActions, dispatch),
+        photoActions: bindActionCreators(photoActions, dispatch)
       }
     }
   }
@@ -34,9 +36,9 @@ class SearchView extends Component {
     handleChangeView(selectedIndex)
   }
   updateSearch(search) {
-    console.log("update search")
-    console.log(search)
-    this.setState({ search });
+    const { handleSearchPhoto } = this.props.actions.photoActions
+    this.setState({ search })
+    handleSearchPhoto(search)
   };
 
   render() {
@@ -55,7 +57,6 @@ class SearchView extends Component {
             buttons= {['Grid View','List View']}
           containerStyle={{height: 40 }}  
           />
-          {/* <Text>text:{ JSON.stringify(this.props) }</Text> */}
          { searchViewNum ? <PhotoList /> : <PhotoGrid /> }
       </View>
     );
@@ -63,7 +64,8 @@ class SearchView extends Component {
 }
 
 SearchView.propTypes = {
-  searchViewNum: PropTypes.number
+  searchViewNum: PropTypes.number,
+  search: PropTypes.string
 }
 
 export default connect(

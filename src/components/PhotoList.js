@@ -10,6 +10,7 @@ const mapStateToProps = ({ photoReducer }) => { //obj contains one or few reduce
   return { data : photoReducer.data }
 };
 
+
 class PhotoList extends Component {
   componentDidMount() {
     const { data } = this.props
@@ -165,5 +166,5 @@ PhotoList.propTypes = {
 
 export default connect(
   mapStateToProps,
- // mapDispatchToProps
+  // mapDispatchToProps
 )(PhotoList)
