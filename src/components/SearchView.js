@@ -11,6 +11,14 @@ import { bindActionCreators } from 'redux'
 const mapStateToProps = ({ viewReducer }) => { //obj contains one or few reducers (root reducer)
     return { searchViewNum : viewReducer.searchViewNum };
   }
+  
+  function mapDispatchToProps(dispatch) {
+    return {
+      actions: {
+        viewActions: bindActionCreators(viewActions, dispatch)
+      }
+    }
+  }
 
 class SearchView extends Component {
   constructor (props) {
@@ -18,7 +26,7 @@ class SearchView extends Component {
   this.updateIndex = this.updateIndex.bind(this)
   }
   updateIndex(selectedIndex) {
-    const { handleChangeView } = this.props.viewReducer.viewActions.handleChangeView
+    const { handleChangeView } = this.props.actions.viewActions
     handleChangeView(selectedIndex)
   }
 
@@ -34,7 +42,7 @@ class SearchView extends Component {
           /> 
         <ButtonGroup
             onPress = { this.updateIndex }
-            selectedIndex =  {searchViewNum }
+            selectedIndex =  { searchViewNum }
             buttons= {['Grid View','List View']}
           containerStyle={{height: 40 }}  
           />
@@ -51,5 +59,5 @@ SearchView.propTypes = {
 
 export default connect(
   mapStateToProps,
-  viewActions
+  mapDispatchToProps
 )(SearchView)
