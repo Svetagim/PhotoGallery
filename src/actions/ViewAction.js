@@ -1,4 +1,4 @@
-import CHANGE_VIEW from './ActionTypes';
+import { CHANGE_VIEW } from './ActionTypes';
 
 const changeView = searchViewNum => ({ type: CHANGE_VIEW, data: searchViewNum });
 

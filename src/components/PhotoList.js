@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, ScrollView } from 'react-native';
 import PhotoItem from './PhotoItem';
+import { connect } from 'react-redux'
+import photoAction from '../actions/photoAction'
+import PropTypes from 'prop-types'
+import { bindActionCreators } from 'redux'
 
-export default class PhotoList extends Component {
+const mapStateToProps = ({ photoReducer }) => { //obj contains one or few reducers (root reducer)
+  return { data : photoReducer.data }
+};
+
+class PhotoList extends Component {
+  componentDidMount() {
+    const { data } = this.props
+  }
   render() {
     return (
+
       <ScrollView contentContainerStyle={styles.contentContainer}>
+       <Text>text:{ JSON.stringify(this.props) }</Text>
           <View style={containerStyle.rowContainer}>
             <PhotoItem url="https://cdn.pixabay.com/photo/2018/01/05/16/24/rose-3063284_150.jpg" wid={70} />
             <View style={containerStyle.colContainer}>
@@ -144,3 +157,13 @@ const containerStyle = StyleSheet.create({
     flexDirection: 'column',
   },
 });
+
+
+PhotoList.propTypes = {
+  value: PropTypes.string
+}
+
+export default connect(
+  mapStateToProps,
+ // mapDispatchToProps
+)(PhotoList)

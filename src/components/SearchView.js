@@ -23,12 +23,21 @@ const mapStateToProps = ({ viewReducer }) => { //obj contains one or few reducer
 class SearchView extends Component {
   constructor (props) {
     super(props)
+    this.state = {
+      search: '',
+    }
   this.updateIndex = this.updateIndex.bind(this)
+  this.updateSearch = this.updateSearch.bind(this)
   }
   updateIndex(selectedIndex) {
     const { handleChangeView } = this.props.actions.viewActions
     handleChangeView(selectedIndex)
   }
+  updateSearch(search) {
+    console.log("update search")
+    console.log(search)
+    this.setState({ search });
+  };
 
   render() {
     const  { searchViewNum } = this.props;
@@ -37,16 +46,16 @@ class SearchView extends Component {
       <View>
           <SearchBar
             placeholder="Type Here..."
-            //onChangeText={this.updateSearch}
-            // value={search}
+            onChangeText={this.updateSearch}
+            value={this.state.search}
           /> 
-        <ButtonGroup
+          <ButtonGroup
             onPress = { this.updateIndex }
             selectedIndex =  { searchViewNum }
             buttons= {['Grid View','List View']}
           containerStyle={{height: 40 }}  
           />
-          <Text>text:{ JSON.stringify(this.props) }</Text>
+          {/* <Text>text:{ JSON.stringify(this.props) }</Text> */}
          { searchViewNum ? <PhotoList /> : <PhotoGrid /> }
       </View>
     );

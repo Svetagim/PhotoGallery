@@ -1,5 +1,5 @@
 // import { ADD_ITEM, SET_INPUT_VISIBILITY, TOGGLE_ITEM } from './todoActionTypes'
-import CHANGE_VIEW from '../actions/ActionTypes'
+import { CHANGE_VIEW } from '../actions/ActionTypes'
 
 const initialState = {
   searchViewNum: 0
